@@ -1,10 +1,11 @@
 import React, { ReactNode } from "react";
 import { Container, Box } from "@mui/material";
-import FloristAppBar from "@/app/ui/FloristAppBar/FloristAppBar";
+import Header from "@/components/florist/Header/Header";
 import { notFound } from "next/navigation";
-import { fetchFlorist } from "@/app/lib/data";
-import FloristNotFound from "@/app/ui/FloristNotFound/FloristNotFound";
-import BottomNav from "@/app/ui/BottomNav/BottomNav";
+import { fetchFlorist } from "@/lib/data";
+import FloristNotFound from "@/components/FloristNotFound/FloristNotFound";
+import BottomNav from "@/components/florist/BottomNav/BottomNav";
+import Footer from "@/components/florist/Footer/Footer";
 
 export default async function FloristHomeLayout({
   children,
@@ -35,7 +36,7 @@ export default async function FloristHomeLayout({
         justifyContent: "center",
       }}
     >
-      <FloristAppBar floristName={params.floristName} />
+      <Header floristName={floristName} />
       <Box
         sx={{
           //   bgcolor: "lightBlue",
@@ -52,7 +53,7 @@ export default async function FloristHomeLayout({
       >
         {children}
       </Box>
-      <BottomNav />
+      <Footer />
     </Container>
   );
 }

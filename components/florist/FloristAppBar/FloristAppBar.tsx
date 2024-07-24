@@ -16,13 +16,12 @@ import LocalFloristOutlinedIcon from "@mui/icons-material/LocalFloristOutlined";
 import PersonIcon from "@mui/icons-material/Person";
 import Link from "next/link";
 
-const pages = [
-  { text: "About", to: "about" },
-  { text: "Contacts", to: "contacts" },
-  { text: "Delivery", to: "delivery" },
-];
+interface FloristAppBarProps {
+  floristName: string;
+  pages: { text: string; to: string }[];
+}
 
-function FloristAppBar({ floristName }: { floristName: string }) {
+function FloristAppBar({ floristName, pages }: FloristAppBarProps) {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -68,7 +67,7 @@ function FloristAppBar({ floristName }: { floristName: string }) {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xxs: "none", md: "flex" },
@@ -131,7 +130,7 @@ function FloristAppBar({ floristName }: { floristName: string }) {
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xxs: "flex", md: "none" },

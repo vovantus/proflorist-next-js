@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getValidSubdomain } from "./utils/subdomain";
-import { permanentRedirect } from "next/navigation";
-import { headers } from "next/headers";
+
 
 // RegExp for public files
 const PUBLIC_FILE = /\.(.*)$/; // Files
