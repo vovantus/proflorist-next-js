@@ -40,6 +40,7 @@ const BouquetCard = ({ bouquet }: BouquetProps) => {
           bottom: 0,
           width: "100%",
           background: "rgba(255, 255, 255, 0.8)",
+          boxSizing: "border-box",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",

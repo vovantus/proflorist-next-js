@@ -1,6 +1,7 @@
+import BouquetList from "@/components/florist/BouquetList/BouquetList";
 import floristApi from "@/lib/floristApi";
-import { Box } from "@mui/material";
-import BouquetCard from "@/components/florist/BouquetCard/BouquetCard";
+
+const bouquetsOnPage = 15;
 
 export default async function Page({
   params,
@@ -8,23 +9,16 @@ export default async function Page({
   params: { floristName: string };
 }) {
   const flotistName = params.floristName;
-  const bouquets = await floristApi.fetchBouquetsByCategory(flotistName);
+  const bouquets = await floristApi.fetchBouquetsByCategory(
+    flotistName,
+    bouquetsOnPage
+  );
 
   return (
-    <Box
-      sx={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit,350px)",
-        width: "100%",
-        marginX: "auto",
-        gap: "8px",
-        justifyContent: "center",
-        alignContent: "start",
-      }}
-    >
-      {bouquets.bouquetList.map((el) => (
-        <BouquetCard key={el.id} bouquet={el} />
-      ))}
-    </Box>
+    <BouquetList
+      floristName={flotistName}
+      initialBouquets={bouquets}
+      bouquetsOnPage={bouquetsOnPage}
+    />
   );
 }

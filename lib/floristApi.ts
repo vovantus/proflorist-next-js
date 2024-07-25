@@ -17,10 +17,7 @@ import Bouquet from "./types/Bouquet";
 import Category from "./types/Category";
 import { createBouquetFromDocument } from "@/utils/dataTransforms";
 
-interface BouquetsData {
-  bouquetList: Bouquet[];
-  lastBouquet: QueryDocumentSnapshot<DocumentData, DocumentData> | "";
-}
+
 
 interface Api {
   fetchFlorist: (
@@ -31,9 +28,10 @@ interface Api {
 
   fetchBouquetsByCategory: (
     floristName: string,
-    cursorDoc?: QueryDocumentSnapshot<DocumentData, DocumentData>,
+    listLength: number,
+    cursorBouquetId?: string,
     categoryId?: Category["id"]
-  ) => Promise<BouquetsData>;
+  ) => Promise<Bouquet[]>;
 }
 
 const floristApi: Api = {
@@ -54,33 +52,35 @@ const floristApi: Api = {
     }
   },
 
-  fetchBouquetsByCategory: async (floristName, cursorDoc, categoryId) => {
+  fetchBouquetsByCategory: async (
+    floristName,
+    listLength,
+    cursorBouquetId,
+    categoryId
+  ) => {
     const floristDoc = await floristApi.fetchFlorist(floristName);
+
     let bouquetsCol = query(collection(floristDoc, "bouquets"));
-    if (categoryId) {
-      bouquetsCol = query(
-        bouquetsCol,
-        where("categories", "array-contains", categoryId)
-      );
-    }
+    const cursorDoc =
+      cursorBouquetId &&
+      doc(collection(floristDoc, "bouquets"), cursorBouquetId);
 
-    bouquetsCol = query(bouquetsCol, orderBy("name", "desc"));
+    const cursorDocSnap = cursorDoc && (await getDoc(cursorDoc));
 
-    if (cursorDoc) bouquetsCol = query(bouquetsCol, startAfter(cursorDoc));
+    const queries = [
+      categoryId && where("categories", "array-contains", categoryId),
+      orderBy("name", "desc"),
+      cursorDocSnap && startAfter(cursorDocSnap),
+      limit(listLength),
+    ].filter(Boolean) as any;
 
-    bouquetsCol = query(bouquetsCol, limit(15));
+    const bouquetsSnapshot = await getDocs(query(bouquetsCol, ...queries));
 
-    const bouquetsSnapshot = await getDocs(bouquetsCol);
     const bouquetList = bouquetsSnapshot.docs.map((doc) =>
       createBouquetFromDocument({ ...doc.data(), id: doc.id })
     );
 
-    const lastBouquet =
-      bouquetsSnapshot.docs.length > 0
-        ? bouquetsSnapshot.docs[bouquetsSnapshot.docs.length - 1]
-        : "";
-
-    return { bouquetList, lastBouquet };
+    return bouquetList;
   },
 };
 
