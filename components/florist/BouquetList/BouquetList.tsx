@@ -62,22 +62,12 @@ export default function BouquetList({
   }, [initUpdate]);
 
   return (
-    <Box
-      sx={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit,350px)",
-        width: "100%",
-        marginX: "auto",
-        gap: "8px",
-        justifyContent: "center",
-        alignContent: "start",
-      }}
-    >
+    <>
       {bouquetsList.map((el) => (
         <BouquetCard key={el.id} bouquet={el} />
       ))}
       {status === "idle" && <BouquetCardSkeleton ref={targetRef} />}
       {status !== "finished" && <BouquetCardSkeleton />}
-    </Box>
+    </>
   );
 }

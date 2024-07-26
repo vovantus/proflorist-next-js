@@ -19,6 +19,7 @@ function createCategoryFromDocument(doc: DocumentData): Category {
     id: doc.id,
     active: doc.active,
     slug: doc.slug,
+    description: doc.description ? doc.description : undefined,
   };
 }
 
