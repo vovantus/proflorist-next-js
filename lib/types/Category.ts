@@ -3,4 +3,5 @@ export default interface Category {
   description?: string;
   active: boolean;
   id: string;
+  slug: string;
 }

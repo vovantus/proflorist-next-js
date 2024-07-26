@@ -6,23 +6,24 @@ import Bouquet from "@/lib/types/Bouquet";
 import { useState, useEffect, useRef } from "react";
 import useGetBouquetsUpdate from "@/hooks/useGetBouquetsUpdate";
 import BouquetCardSkeleton from "../BouquetCard/BouquetCardSkeleton";
+import Category from "@/lib/types/Category";
 
 interface BouquetListProps {
   floristName: string;
   initialBouquets: Bouquet[];
-  bouquetsOnPage: number;
+  categoryId?: Category["id"];
 }
 
 export default function BouquetList({
   floristName,
   initialBouquets,
-  bouquetsOnPage,
+  categoryId,
 }: BouquetListProps) {
   const [bouquetsList, setBouquetsList] = useState<Bouquet[]>(initialBouquets);
   const { newBouquets, status, initUpdate } = useGetBouquetsUpdate(
     floristName,
-    bouquetsOnPage,
-    initialBouquets[initialBouquets.length - 1].id
+    initialBouquets[initialBouquets.length - 1].id,
+    categoryId
   );
   const targetRef = useRef<HTMLDivElement>(null);
 

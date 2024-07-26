@@ -1,12 +1,14 @@
 import floristApi from "@/lib/floristApi";
 import Bouquet from "@/lib/types/Bouquet";
-import { stat } from "fs/promises";
+import Category from "@/lib/types/Category";
 import { useCallback, useEffect, useState } from "react";
+import { ITEMS_PER_PAGE } from "@/utils/config";
 
 const useGetBouquetsUpdate = (
   floristName: string,
-  bouquetsOnPage: number,
-  startingFromId: string
+  startingFromId: string,
+  categoryId?: Category["id"],
+  bouquetsOnPage: number = ITEMS_PER_PAGE
 ) => {
   const [status, setStatus] = useState("idle");
   const [newBouquets, setNewBouquets] = useState<Bouquet[]>([]);
@@ -17,7 +19,12 @@ const useGetBouquetsUpdate = (
     if (cursorBouquetId) {
       setStatus("loading");
       floristApi
-        .fetchBouquetsByCategory(floristName, bouquetsOnPage, cursorBouquetId)
+        .fetchBouquetsByCategory(
+          floristName,
+          cursorBouquetId,
+          categoryId,
+          bouquetsOnPage
+        )
         .then((newBouquets) => {
           setNewBouquets(newBouquets);
           setStatus("idle");
@@ -29,7 +36,7 @@ const useGetBouquetsUpdate = (
           }
         });
     }
-  }, [bouquetsOnPage, cursorBouquetId, floristName]);
+  }, [bouquetsOnPage, categoryId, cursorBouquetId, floristName]);
 
   const initUpdate = useCallback(() => {
     setCursorBouquetId(lastBouquetId);

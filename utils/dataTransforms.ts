@@ -1,4 +1,5 @@
 import Bouquet from "@/lib/types/Bouquet";
+import Category from "@/lib/types/Category";
 import { DocumentData } from "firebase/firestore/lite";
 
 function createBouquetFromDocument(doc: DocumentData): Bouquet {
@@ -12,4 +13,13 @@ function createBouquetFromDocument(doc: DocumentData): Bouquet {
   };
 }
 
-export { createBouquetFromDocument };
+function createCategoryFromDocument(doc: DocumentData): Category {
+  return {
+    name: doc.name,
+    id: doc.id,
+    active: doc.active,
+    slug: doc.slug,
+  };
+}
+
+export { createBouquetFromDocument, createCategoryFromDocument };
