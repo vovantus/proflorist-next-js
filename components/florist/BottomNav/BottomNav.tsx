@@ -8,6 +8,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
+import { useCart } from "@/store/store";
 
 interface BottomNavProps {
   tabs: {
@@ -19,7 +20,7 @@ interface BottomNavProps {
 }
 
 export default function BottomNav({ tabs }: BottomNavProps) {
-  const cartCounter = 10;
+  const cartTotalQuantity = useCart((state) => state.cartTotalQuantity);
   const tabRoutes = tabs
     .map((tab) => tab.link)
     .sort()
@@ -57,7 +58,7 @@ export default function BottomNav({ tabs }: BottomNavProps) {
             icon={
               tab.label === "Cart" ? (
                 <Badge
-                  badgeContent={cartCounter}
+                  badgeContent={cartTotalQuantity}
                   color="primary"
                   max={99}
                   overlap="circular"

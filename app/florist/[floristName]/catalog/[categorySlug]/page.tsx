@@ -38,7 +38,7 @@ export default async function BouquetsInCategoryPage({
             display: "flex",
             flexWrap: "wrap",
             flexDirection: "row",
-            justifyContent: "center",
+            justifyContent: "start",
             alignItems: "start",
             width: "100%",
             height: "100%",

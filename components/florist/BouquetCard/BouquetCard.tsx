@@ -13,9 +13,10 @@ import Bouquet from "@/lib/types/Bouquet";
 
 interface BouquetProps {
   bouquet: Bouquet;
+  addItem: (id: Bouquet["id"]) => void;
 }
 
-const BouquetCard = ({ bouquet }: BouquetProps) => {
+const BouquetCard = ({ bouquet, addItem }: BouquetProps) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   return (
     <Card
@@ -93,6 +94,9 @@ const BouquetCard = ({ bouquet }: BouquetProps) => {
           component="div"
           sx={{ minWidth: "100px", textWrap: "nowrap" }}
           size="small"
+          onClick={() => {
+            addItem(bouquet.id);
+          }}
         >
           From {bouquet.price}€
         </Button>
