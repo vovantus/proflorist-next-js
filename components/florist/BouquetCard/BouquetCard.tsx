@@ -1,4 +1,13 @@
-import { Typography, Button, Card, CardContent, Box } from "@mui/material";
+"use client";
+import {
+  Typography,
+  Button,
+  Card,
+  CardContent,
+  Box,
+  Skeleton,
+} from "@mui/material";
+import { useState } from "react";
 
 import Bouquet from "@/lib/types/Bouquet";
 
@@ -7,6 +16,7 @@ interface BouquetProps {
 }
 
 const BouquetCard = ({ bouquet }: BouquetProps) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
   return (
     <Card
       sx={{
@@ -16,6 +26,20 @@ const BouquetCard = ({ bouquet }: BouquetProps) => {
         borderRadius: "24px",
       }}
     >
+      {!imageLoaded && (
+        <Skeleton
+          variant="rectangular"
+          animation="wave"
+          sx={{
+            borderRadius: "24px",
+            position: "absolute",
+            top: "0px",
+            left: "0px",
+            width: 350,
+            height: 350,
+          }}
+        />
+      )}
       <Box
         component="img"
         sx={{
@@ -32,6 +56,7 @@ const BouquetCard = ({ bouquet }: BouquetProps) => {
         src={bouquet.images[0]}
         title={bouquet.name}
         loading="lazy"
+        onLoad={() => setImageLoaded(true)}
       />
 
       <CardContent
