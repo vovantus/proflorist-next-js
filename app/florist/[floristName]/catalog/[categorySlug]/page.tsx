@@ -13,7 +13,7 @@ export default async function BouquetsInCategoryPage({
     flotistName,
     categorySlug
   );
-  const bouquets = await floristApi.fetchBouquetsByCategory(
+  const [bouquets, hasMore] = await floristApi.fetchBouquetsByCategory(
     flotistName,
     undefined,
     category.id
@@ -54,6 +54,7 @@ export default async function BouquetsInCategoryPage({
           floristName={flotistName}
           initialBouquets={bouquets}
           categoryId={category.id}
+          hasMore={hasMore}
         />
       </Box>
     </>

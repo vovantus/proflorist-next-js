@@ -8,7 +8,9 @@ export default async function FloristShowcasePage({
   params: { floristName: string };
 }) {
   const flotistName = params.floristName;
-  const bouquets = await floristApi.fetchBouquetsByCategory(flotistName);
+  const [bouquets, hasMore] = await floristApi.fetchBouquetsByCategory(
+    flotistName
+  );
 
   return (
     <Box
@@ -35,9 +37,18 @@ export default async function FloristShowcasePage({
           py: 1,
         }}
       >
-        <Typography variant="h2">Today&apos;s Picks</Typography>
+        <Typography
+          variant="h2"
+          sx={{ fontSize: { xxs: "2.75rem", md: "3.75rem" } }}
+        >
+          Today&apos;s Picks
+        </Typography>
       </Box>
-      <BouquetList floristName={flotistName} initialBouquets={bouquets} />
+      <BouquetList
+        floristName={flotistName}
+        initialBouquets={bouquets}
+        hasMore={hasMore}
+      />
     </Box>
   );
 }

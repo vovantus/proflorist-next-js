@@ -1,13 +1,7 @@
 "use client";
-import {
-  Typography,
-  Button,
-  Card,
-  CardContent,
-  Box,
-  Skeleton,
-} from "@mui/material";
+import { Typography, Button, Card, CardContent, Skeleton } from "@mui/material";
 import { useState } from "react";
+import Image from "next/image";
 
 import Bouquet from "@/lib/types/Bouquet";
 
@@ -18,6 +12,7 @@ interface BouquetProps {
 
 const BouquetCard = ({ bouquet, addItem }: BouquetProps) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+
   return (
     <Card
       sx={{
@@ -27,37 +22,37 @@ const BouquetCard = ({ bouquet, addItem }: BouquetProps) => {
         borderRadius: "24px",
       }}
     >
-      {!imageLoaded && (
-        <Skeleton
-          variant="rectangular"
-          animation="wave"
-          sx={{
-            borderRadius: "24px",
-            position: "absolute",
-            top: "0px",
-            left: "0px",
-            width: 350,
-            height: 350,
-          }}
-        />
-      )}
-      <Box
-        component="img"
-        sx={{
+      <Image
+        src={bouquet.images[0]}
+        alt={bouquet.name}
+        width={350}
+        height={350}
+        priority={false}
+        style={{
           position: "absolute",
           top: "0px",
           left: "0px",
-          height: 350,
-          width: 350,
           borderRadius: "24px",
-
+          opacity: imageLoaded ? 1 : 0,
           transition: "opacity 0.8s ease-in-out",
           cursor: "pointer",
         }}
-        src={bouquet.images[0]}
-        title={bouquet.name}
-        loading="lazy"
-        onLoad={() => setImageLoaded(true)}
+        onLoad={() => {
+          setImageLoaded(true);
+        }}
+      />
+
+      <Skeleton
+        variant="rectangular"
+        animation="wave"
+        sx={{
+          borderRadius: "24px",
+          position: "absolute",
+          top: "0px",
+          left: "0px",
+          width: 350,
+          height: 350,
+        }}
       />
 
       <CardContent

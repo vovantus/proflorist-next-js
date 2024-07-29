@@ -12,12 +12,14 @@ import { useCart } from "@/store/store";
 interface BouquetListProps {
   floristName: string;
   initialBouquets: Bouquet[];
+  hasMore: boolean;
   categoryId?: Category["id"];
 }
 
 export default function BouquetList({
   floristName,
   initialBouquets,
+  hasMore,
   categoryId,
 }: BouquetListProps) {
   const addItem = useCart((state) => state.addItem);
@@ -25,7 +27,7 @@ export default function BouquetList({
 
   const { newBouquets, status, initUpdate } = useGetBouquetsUpdate(
     floristName,
-    initialBouquets[initialBouquets.length - 1].id,
+    hasMore ? initialBouquets[initialBouquets.length - 1].id : "",
     categoryId
   );
   const targetRef = useRef<HTMLDivElement>(null);
@@ -48,7 +50,7 @@ export default function BouquetList({
       {
         root: null,
         rootMargin: "0px",
-        threshold: 1.0,
+        threshold: 0.2,
       }
     );
 
@@ -69,8 +71,7 @@ export default function BouquetList({
       {bouquetsList.map((el) => (
         <BouquetCard key={el.id} bouquet={el} addItem={addItem} />
       ))}
-      {status === "idle" && <BouquetCardSkeleton ref={targetRef} />}
-      {status !== "finished" && <BouquetCardSkeleton />}
+      {status !== "finished" && <BouquetCardSkeleton ref={targetRef} />}
     </>
   );
 }

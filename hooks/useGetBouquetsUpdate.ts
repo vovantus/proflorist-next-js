@@ -10,10 +10,13 @@ const useGetBouquetsUpdate = (
   categoryId?: Category["id"],
   bouquetsOnPage: number = ITEMS_PER_PAGE
 ) => {
-  const [status, setStatus] = useState("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "finished">(
+    startingFromId ? "idle" : "finished"
+  );
   const [newBouquets, setNewBouquets] = useState<Bouquet[]>([]);
-  const [cursorBouquetId, setCursorBouquetId] = useState("");
-  const [lastBouquetId, setLastBouquetId] = useState(startingFromId);
+  const [cursorBouquetId, setCursorBouquetId] = useState<string>("");
+  const [lastBouquetId, setLastBouquetId] =
+    useState<Bouquet["id"]>(startingFromId);
 
   useEffect(() => {
     if (cursorBouquetId) {
@@ -25,10 +28,9 @@ const useGetBouquetsUpdate = (
           categoryId,
           bouquetsOnPage
         )
-        .then((newBouquets) => {
+        .then(([newBouquets, hasMore]) => {
           setNewBouquets(newBouquets);
-          setStatus("idle");
-          if (newBouquets && newBouquets.length < bouquetsOnPage) {
+          if (!hasMore) {
             setStatus("finished");
           } else {
             setLastBouquetId(newBouquets[newBouquets.length - 1].id);
@@ -39,7 +41,7 @@ const useGetBouquetsUpdate = (
   }, [bouquetsOnPage, categoryId, cursorBouquetId, floristName]);
 
   const initUpdate = useCallback(() => {
-    setCursorBouquetId(lastBouquetId);
+    if (lastBouquetId) setCursorBouquetId(lastBouquetId);
   }, [lastBouquetId]);
 
   return { newBouquets, status, initUpdate };

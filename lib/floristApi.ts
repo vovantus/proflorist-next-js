@@ -45,7 +45,7 @@ interface Api {
     cursorBouquetId?: string,
     categoryId?: Category["slug"],
     listLength?: number
-  ) => Promise<Bouquet[]>;
+  ) => Promise<[Bouquet[], boolean]>;
 
   fetchCategories: (floristName: string) => Promise<Category[]>;
 }
@@ -120,16 +120,17 @@ const floristApi: Api = {
       categoryId && where("categories", "array-contains", categoryId),
       orderBy("name", "desc"),
       cursorDocSnap && startAfter(cursorDocSnap),
-      limit(listLength),
+      limit(listLength + 1),
     ].filter(Boolean) as any;
 
     const bouquetsSnapshot = await getDocs(query(bouquetsCol, ...queries));
-
     const bouquetList = bouquetsSnapshot.docs.map((doc) =>
       createBouquetFromDocument({ ...doc.data(), id: doc.id })
     );
 
-    return bouquetList;
+    const hasMore = bouquetsSnapshot.size > listLength;
+
+    return [bouquetList.slice(0, listLength), hasMore];
   },
 
   fetchCategories: async (floristName) => {
