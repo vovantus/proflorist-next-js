@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 import Bouquet from "@/lib/types/Bouquet";
+import Link from "next/link";
 
 interface BouquetProps {
   bouquet: Bouquet;
@@ -70,10 +71,10 @@ const BouquetCard = ({ bouquet, addItem }: BouquetProps) => {
         }}
       >
         <Typography
-          // onClick={() => showBouquet(bouquet)}
           gutterBottom
           variant="subtitle1"
-          component="div"
+          component={Link}
+          href={`/product/${bouquet.id}`}
           sx={{
             cursor: "pointer",
             textWrap: "nowrap",

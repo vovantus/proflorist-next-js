@@ -48,6 +48,11 @@ interface Api {
   ) => Promise<[Bouquet[], boolean]>;
 
   fetchCategories: (floristName: string) => Promise<Category[]>;
+
+  fetchBouquetsById: (
+    floristName: string,
+    bouquetIds: Bouquet["id"][]
+  ) => Promise<Bouquet[]>;
 }
 
 const floristApi: Api = {
@@ -141,6 +146,19 @@ const floristApi: Api = {
       createCategoryFromDocument({ ...doc.data(), id: doc.id })
     );
     return categoriestList;
+  },
+
+  fetchBouquetsById: async (floristName, bouquetIds) => {
+    const floristDoc = await floristApi.fetchFlorist(floristName);
+    const bouquetsCol = query(
+      collection(floristDoc, "bouquets"),
+      where("__name__", "in", bouquetIds)
+    );
+    const bouquetsSnapshot = await getDocs(bouquetsCol);
+    const bouquetList = bouquetsSnapshot.docs.map((doc) =>
+      createBouquetFromDocument({ ...doc.data(), id: doc.id })
+    );
+    return bouquetList;
   },
 };
 
