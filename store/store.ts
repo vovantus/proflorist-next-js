@@ -1,10 +1,10 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import CartItems from "@/lib/types/CartItem";
+import CartStoreItems from "@/lib/types/CartStoreItems";
 import Bouquet from "@/lib/types/Bouquet";
 
 interface UseCart {
-  cartItems: CartItems;
+  cartItems: CartStoreItems;
   cartTotalQuantity: number;
   addItem: (id: Bouquet["id"]) => void;
   removeItem: (bouquet: Bouquet["id"], all?: "all") => void;

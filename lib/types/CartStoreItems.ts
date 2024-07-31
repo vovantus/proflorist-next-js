@@ -1,5 +1,5 @@
 import Bouquet from "./Bouquet";
 
-export default interface CartItems {
+export default interface CartStoreItems {
   [key: Bouquet["id"]]: number;
 }
