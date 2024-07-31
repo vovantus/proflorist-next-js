@@ -1,12 +1,14 @@
 import { Button, Card, CardContent, Skeleton, Typography } from "@mui/material";
 
 interface CartTotalProps {
+  isLoading: boolean;
   cartTotalQuantity: number;
   cartTotal?: number;
   proceedToCheckout: () => void;
 }
 
 export default function CartTotal({
+  isLoading,
   cartTotalQuantity,
   cartTotal,
   proceedToCheckout,
@@ -31,7 +33,7 @@ export default function CartTotal({
           Total:
         </Typography>
         <Typography variant="h5" sx={{ textAlign: "end" }}>
-          {`${cartTotal}€`}
+          {isLoading ? <Skeleton width={"100%"} /> : `${cartTotal}€`}
         </Typography>
         <Typography sx={{ mb: 1.5, textAlign: "end" }} color="text.secondary">
           {`${cartTotalQuantity} bouquets`}

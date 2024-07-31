@@ -1,30 +1,26 @@
 import floristApi from "@/lib/floristApi";
-import CartProduct from "@/lib/types/CartProduct";
+import Bouquet from "@/lib/types/Bouquet";
 import CartItems from "@/lib/types/CartStoreItems";
 import { useEffect, useState } from "react";
 
-const useGetCartItemsInfo = (floristName: string, cartItems: CartItems) => {
+const useGetCartItemsInfo = (
+  floristName: string,
+  cartItems: Bouquet["id"][]
+) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [bouquets, setBouquets] = useState<CartProduct[]>([]);
+  const [bouquets, setBouquets] = useState<Bouquet[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const productIds = Object.keys(cartItems);
-
-    if (productIds.length === 0) {
+    if (cartItems.length === 0) {
       setIsLoading(false);
       return;
     }
-
     setIsLoading(true);
     floristApi
-      .fetchBouquetsById(floristName, productIds)
+      .fetchBouquetsById(floristName, cartItems)
       .then((bouquets) => {
-        const cartProducts = bouquets.map((bouq) => ({
-          ...bouq,
-          quantity: cartItems[bouq.id],
-        }));
-        setBouquets(cartProducts);
+        setBouquets(bouquets);
       })
       .catch((err) => {
         setError("Failed to fetch bouquets");
@@ -32,13 +28,7 @@ const useGetCartItemsInfo = (floristName: string, cartItems: CartItems) => {
       .finally(() => setIsLoading(false));
   }, [floristName, cartItems]);
 
-  const cartTotal =
-    Math.round(
-      bouquets.reduce((acc, bouq) => (acc += bouq.price * bouq.quantity), 0) *
-        100
-    ) / 100;
-
-  return { bouquets, isLoading, cartTotal, error };
+  return { bouquets, isLoading, error };
 };
 
 export default useGetCartItemsInfo;

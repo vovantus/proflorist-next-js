@@ -10,37 +10,38 @@ interface UseCart {
   removeItem: (bouquet: Bouquet["id"], all?: "all") => void;
 }
 
+
+
 export const useCart = create<UseCart>()(
   persist(
     (set) => ({
       cartItems: {},
-
       cartTotalQuantity: 0,
 
       addItem: (id) =>
         set((state) => {
           const currentQuantity = state.cartItems[id];
-
+          const newItems = {
+            ...state.cartItems,
+            [id]: currentQuantity ? currentQuantity + 1 : 1,
+          };
           return {
-            cartItems: {
-              ...state.cartItems,
-              [id]: currentQuantity ? currentQuantity + 1 : 1,
-            },
-            cartTotalQuantity: (state.cartTotalQuantity += 1),
+            cartItems: newItems,
+            cartTotalQuantity: Object.values(newItems).reduce(
+              (sum, item) => (sum += item),
+              0
+            ),
           };
         }),
 
       removeItem: (id, all) =>
         set((state) => {
           const currentQuantity = state.cartItems[id];
-          let cartTotalQuantity = state.cartTotalQuantity;
           if (currentQuantity) {
             if (currentQuantity > 1) {
               if (all) {
-                cartTotalQuantity -= state.cartItems[id];
                 delete state.cartItems[id];
               } else {
-                cartTotalQuantity -= 1;
                 state.cartItems[id] -= 1;
               }
             } else {
@@ -50,7 +51,10 @@ export const useCart = create<UseCart>()(
 
           return {
             cartItems: { ...state.cartItems },
-            cartTotalQuantity: cartTotalQuantity,
+            cartTotalQuantity: Object.values(state.cartItems).reduce(
+              (sum, item) => (sum += item),
+              0
+            ),
           };
         }),
     }),
