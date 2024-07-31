@@ -15,11 +15,13 @@ import {
 import api from "./firebaseInstance";
 import Bouquet from "./types/Bouquet";
 import Category from "./types/Category";
+import News from "./types/News";
 import {
   createBouquetFromDocument,
   createCategoryFromDocument,
+  createNewsFromDocument,
 } from "@/utils/dataTransforms";
-import { ITEMS_PER_PAGE } from "@/utils/config";
+import { PRODUCTS_PER_PAGE, NEWS_PER_PAGE } from "@/utils/config";
 
 type FetchCategoryInfo = {
   (floristName: string, categorySlug: Category["slug"]): Promise<Category>;
@@ -53,6 +55,12 @@ interface Api {
     floristName: string,
     bouquetIds: Bouquet["id"][]
   ) => Promise<Bouquet[]>;
+
+  fetchNews: (
+    floristName: string,
+    cursorNewsId?: News["id"],
+    listLength?: number
+  ) => Promise<[News[], boolean]>;
 }
 
 const floristApi: Api = {
@@ -110,7 +118,7 @@ const floristApi: Api = {
     floristName,
     cursorBouquetId,
     categoryId,
-    listLength = ITEMS_PER_PAGE
+    listLength = PRODUCTS_PER_PAGE
   ) => {
     const floristDoc = await floristApi.fetchFlorist(floristName);
 
@@ -159,6 +167,32 @@ const floristApi: Api = {
       createBouquetFromDocument({ ...doc.data(), id: doc.id })
     );
     return bouquetList;
+  },
+
+  fetchNews: async (floristName, cursorNewsId, listLength = NEWS_PER_PAGE) => {
+    const floristDoc = await floristApi.fetchFlorist(floristName);
+
+    const cursorDoc =
+      cursorNewsId && doc(collection(floristDoc, "news"), cursorNewsId);
+    const cursorDocSnap = cursorDoc && (await getDoc(cursorDoc));
+
+    const queries = [
+      collection(floristDoc, "news"),
+      orderBy("date", "desc"),
+      cursorDocSnap && startAfter(cursorDocSnap),
+      limit(listLength + 1),
+    ].filter(Boolean) as any;
+
+    const newsCol = collection(floristDoc, "news");
+
+    const newsSnapshot = await getDocs(query(newsCol, ...queries));
+    const newsList = newsSnapshot.docs.map((doc) =>
+      createNewsFromDocument({ ...doc.data(), id: doc.id })
+    );
+
+    const hasMore = newsSnapshot.size > listLength;
+
+    return [newsList.slice(0, listLength), hasMore];
   },
 };
 

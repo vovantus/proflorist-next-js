@@ -2,19 +2,19 @@ import floristApi from "@/lib/floristApi";
 import Bouquet from "@/lib/types/Bouquet";
 import Category from "@/lib/types/Category";
 import { useCallback, useEffect, useState } from "react";
-import { ITEMS_PER_PAGE } from "@/utils/config";
+import { PRODUCTS_PER_PAGE } from "@/utils/config";
 
 const useGetBouquetsUpdate = (
   floristName: string,
   startingFromId: string,
   categoryId?: Category["id"],
-  bouquetsOnPage: number = ITEMS_PER_PAGE
+  bouquetsOnPage: number = PRODUCTS_PER_PAGE
 ) => {
   const [status, setStatus] = useState<"idle" | "loading" | "finished">(
     startingFromId ? "idle" : "finished"
   );
   const [newBouquets, setNewBouquets] = useState<Bouquet[]>([]);
-  const [cursorBouquetId, setCursorBouquetId] = useState<string>("");
+  const [cursorBouquetId, setCursorBouquetId] = useState<Bouquet["id"]>("");
   const [lastBouquetId, setLastBouquetId] =
     useState<Bouquet["id"]>(startingFromId);
 
