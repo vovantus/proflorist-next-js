@@ -82,11 +82,11 @@ const NewsCard = memo(function NewsCard({ news }: NewsCardProps) {
           <Typography variant="body2">{news.text}</Typography>
         </CardContent>
 
-        {news.categoryId && (
+        {news.categorySlug && (
           <CardActions>
             <Button
               component={Link}
-              href={`/catalog/${news.categoryId}`}
+              href={`/catalog/${news.categorySlug}`}
               size="small"
               color="primary"
             >

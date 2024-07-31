@@ -33,6 +33,7 @@ function createNewsFromDocument(doc: DocumentData): News {
     imageUrl: doc.imageUrl,
     linkTitle: doc.linkTitle ?? null,
     categoryId: doc.categoryId ?? null,
+    categorySlug: doc.categorySlug ?? null,
   };
 }
 

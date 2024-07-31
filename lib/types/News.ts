@@ -6,4 +6,5 @@ export default interface News {
   imageUrl: string;
   linkTitle?: string;
   categoryId?: string;
+  categorySlug?: string;
 }
