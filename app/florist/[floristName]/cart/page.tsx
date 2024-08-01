@@ -1,17 +1,17 @@
 "use client";
 
 import CartBouquetDeletionDialog from "@/components/florist/Cart/CartBouquetDeletionDialog";
-import CartItem from "@/components/florist/Cart/CartItem";
-import CartItemSkeleton from "@/components/florist/Cart/CartItemSkeleton";
 import CartTotal from "@/components/florist/Cart/CartTotal";
 import CartTotalSkeleton from "@/components/florist/Cart/CartTotalSkeleton";
 import EmptyCart from "@/components/florist/Cart/EmptyCart";
 import useGetCartItemsInfo from "@/hooks/useGetCartItemsInfo";
 import Bouquet from "@/lib/types/Bouquet";
 import { useCart } from "@/store/store";
-import { Box } from "@mui/material";
+import { Snackbar, Alert } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useShallow } from "zustand/react/shallow";
+import theme from "@/theme";
+import CartItemsList from "@/components/florist/Cart/CartItemsList";
 
 export default function CartPage({
   params,
@@ -32,11 +32,12 @@ export default function CartPage({
   );
   const [activeBouquet, setActiveBouquet] = useState<Bouquet>();
   const [deletionAlertOpen, setDeletionAlertOpen] = useState(true);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useEffect(() => setPageInitialized(true), []);
 
   const proceedToCheckout = () => {
-    console.log("checkout button pressed");
+    setSnackbarOpen(true);
   };
 
   const cartTotal =
@@ -70,25 +71,6 @@ export default function CartPage({
     }
   };
 
-  const renderCartItems = () => (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 1, pb: 30 }}>
-      {bouquets.length === 0
-        ? Array.from(new Array(2)).map((_, index) => (
-            <CartItemSkeleton key={index} />
-          ))
-        : bouquets.map((bouquet) => (
-            <CartItem
-              key={bouquet.id}
-              bouquet={bouquet}
-              quantity={cartItems[bouquet.id]}
-              increaseQty={() => addItem(bouquet.id)}
-              decreaseQty={() => decreaseQty(bouquet)}
-              deleteItem={() => handleDeleteItem(bouquet)}
-            />
-          ))}
-    </Box>
-  );
-
   return (
     <>
       {!pageInitialized ? (
@@ -97,7 +79,13 @@ export default function CartPage({
         <EmptyCart />
       ) : (
         <>
-          {renderCartItems()}
+          <CartItemsList
+            bouquets={bouquets}
+            cartItems={cartItems}
+            addItem={addItem}
+            decreaseQty={decreaseQty}
+            handleDeleteItem={handleDeleteItem}
+          />
           <CartTotal
             isLoading={isLoading}
             cartTotalQuantity={cartTotalQuantity}
@@ -114,6 +102,28 @@ export default function CartPage({
           onCancelPressed={closeDialog}
           bouquetName={activeBouquet.name}
         />
+      )}
+
+      {cartTotalQuantity !== 0 && (
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={snackbarOpen}
+          sx={{ top: { xxs: 64, sm: 80 } }}
+          autoHideDuration={2000}
+          onClose={() => setSnackbarOpen(false)}
+        >
+          <Alert
+            severity="info"
+            variant="outlined"
+            sx={{
+              width: "100%",
+              color: theme.palette.secondary.contrastText,
+              bgcolor: theme.palette.secondary.main,
+            }}
+          >
+            This is just a demo app!
+          </Alert>
+        </Snackbar>
       )}
     </>
   );

@@ -8,10 +8,10 @@ import Link from "next/link";
 
 interface BouquetProps {
   bouquet: Bouquet;
-  addItem: (id: Bouquet["id"]) => void;
+  handleAddToCart: () => void;
 }
 
-const BouquetCard = ({ bouquet, addItem }: BouquetProps) => {
+const BouquetCard = ({ bouquet, handleAddToCart }: BouquetProps) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
@@ -90,9 +90,7 @@ const BouquetCard = ({ bouquet, addItem }: BouquetProps) => {
           component="div"
           sx={{ minWidth: "100px", textWrap: "nowrap" }}
           size="small"
-          onClick={() => {
-            addItem(bouquet.id);
-          }}
+          onClick={handleAddToCart}
         >
           From {bouquet.price}€
         </Button>

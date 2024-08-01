@@ -1,13 +1,13 @@
 "use client";
 
-import { Box } from "@mui/material";
 import BouquetCard from "@/components/florist/BouquetCard/BouquetCard";
 import Bouquet from "@/lib/types/Bouquet";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import useGetBouquetsUpdate from "@/hooks/useGetBouquetsUpdate";
 import BouquetCardSkeleton from "../BouquetCard/BouquetCardSkeleton";
 import Category from "@/lib/types/Category";
 import { useCart } from "@/store/store";
+import SnackBarAlerts, { SnackBarMessage } from "./SnackBarAlerts";
 
 interface BouquetListProps {
   floristName: string;
@@ -24,13 +24,13 @@ export default function BouquetList({
 }: BouquetListProps) {
   const addItem = useCart((state) => state.addItem);
   const [bouquetsList, setBouquetsList] = useState<Bouquet[]>(initialBouquets);
-
   const { newBouquets, status, initUpdate } = useGetBouquetsUpdate(
     floristName,
     hasMore ? initialBouquets[initialBouquets.length - 1].id : "",
     categoryId
   );
   const targetRef = useRef<HTMLDivElement>(null);
+  const [snackPack, setSnackPack] = useState<SnackBarMessage[]>([]);
 
   useEffect(() => {
     if (newBouquets.length > 0) {
@@ -66,12 +66,30 @@ export default function BouquetList({
     };
   }, [initUpdate]);
 
+  const popSnackPack = useCallback(
+    () => setSnackPack((prev) => prev.slice(1)),
+    []
+  );
+
+  const handleAddToCart = (bouquet: Bouquet) => {
+    addItem(bouquet.id);
+    setSnackPack((prev) => [
+      ...prev,
+      { message: bouquet.name, key: new Date().getTime() },
+    ]);
+  };
+
   return (
     <>
       {bouquetsList.map((el) => (
-        <BouquetCard key={el.id} bouquet={el} addItem={addItem} />
+        <BouquetCard
+          key={el.id}
+          bouquet={el}
+          handleAddToCart={() => handleAddToCart(el)}
+        />
       ))}
       {status !== "finished" && <BouquetCardSkeleton ref={targetRef} />}
+      <SnackBarAlerts popSnackPack={popSnackPack} snackPack={snackPack} />
     </>
   );
 }
