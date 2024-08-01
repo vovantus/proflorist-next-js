@@ -30,8 +30,9 @@ export default function CartPage({
     params.floristName,
     cartItemIds
   );
-  const [activeBouquet, setActiveBouquet] = useState<Bouquet>();
-  const [deletionAlertOpen, setDeletionAlertOpen] = useState(true);
+  const [removingBouquetId, setRemovingBouquetId] = useState<Bouquet["id"]>("");
+  const [removingBouquetCandidate, setRemovingBouquetCandidate] =
+    useState<Bouquet>();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useEffect(() => setPageInitialized(true), []);
@@ -49,18 +50,21 @@ export default function CartPage({
     ) / 100;
 
   const closeDialog = () => {
-    setActiveBouquet(undefined);
-    setDeletionAlertOpen(false);
+    setRemovingBouquetCandidate(undefined);
   };
 
   const removeAndCloseDialog = () => {
-    activeBouquet && removeItem(activeBouquet.id, "all");
+    removingBouquetCandidate &&
+      setRemovingBouquetId(removingBouquetCandidate.id);
+    setTimeout(() => {
+      removingBouquetCandidate &&
+        removeItem(removingBouquetCandidate.id, "all");
+    }, 250);
     closeDialog();
   };
 
   const handleDeleteItem = (bouquet: Bouquet) => {
-    setActiveBouquet(bouquet);
-    setDeletionAlertOpen(true);
+    setRemovingBouquetCandidate(bouquet);
   };
 
   const decreaseQty = (bouquet: Bouquet) => {
@@ -85,6 +89,7 @@ export default function CartPage({
             addItem={addItem}
             decreaseQty={decreaseQty}
             handleDeleteItem={handleDeleteItem}
+            removingBouquetId={removingBouquetId}
           />
           <CartTotal
             isLoading={isLoading}
@@ -95,12 +100,12 @@ export default function CartPage({
         </>
       )}
 
-      {activeBouquet && (
+      {removingBouquetCandidate && (
         <CartBouquetDeletionDialog
-          open={deletionAlertOpen}
+          open={!!removingBouquetCandidate}
           onRemovePressed={removeAndCloseDialog}
           onCancelPressed={closeDialog}
-          bouquetName={activeBouquet.name}
+          bouquetName={removingBouquetCandidate.name}
         />
       )}
 

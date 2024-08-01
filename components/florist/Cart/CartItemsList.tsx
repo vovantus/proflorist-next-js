@@ -10,6 +10,7 @@ interface CartItemsListProps {
   addItem: (id: Bouquet["id"]) => void;
   decreaseQty: (bouquet: Bouquet) => void;
   handleDeleteItem: (bouquet: Bouquet) => void;
+  removingBouquetId: Bouquet["id"];
 }
 
 export default function CartItemsList({
@@ -18,6 +19,7 @@ export default function CartItemsList({
   addItem,
   decreaseQty,
   handleDeleteItem,
+  removingBouquetId,
 }: CartItemsListProps) {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 1, pb: 30 }}>
@@ -28,6 +30,7 @@ export default function CartItemsList({
         : bouquets.map((bouquet) => (
             <CartItem
               key={bouquet.id}
+              isDeleting={removingBouquetId === bouquet.id}
               bouquet={bouquet}
               quantity={cartItems[bouquet.id]}
               increaseQty={() => addItem(bouquet.id)}

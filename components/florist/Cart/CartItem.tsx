@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import { memo, useState } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
-
 import Image from "next/image";
 import Bouquet from "@/lib/types/Bouquet";
 
@@ -19,12 +18,14 @@ interface CartItemProps {
   increaseQty: () => void;
   decreaseQty: () => void;
   deleteItem: () => void;
+  isDeleting: boolean;
 }
 
 function compareProducts(oldProps: CartItemProps, newProps: CartItemProps) {
   return (
     oldProps.bouquet.price === newProps.bouquet.price &&
-    oldProps.quantity === newProps.quantity
+    oldProps.quantity === newProps.quantity &&
+    oldProps.isDeleting === newProps.isDeleting
   );
 }
 
@@ -34,6 +35,7 @@ const CartItem = memo(function CartItem({
   increaseQty,
   decreaseQty,
   deleteItem,
+  isDeleting,
 }: CartItemProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -42,10 +44,13 @@ const CartItem = memo(function CartItem({
       sx={{
         display: "flex",
         width: 350,
-        height: 120,
         justifyContent: "space-between",
         flexDirection: "row",
         position: "relative",
+        transition: "all 0.3s ease",
+        height: isDeleting ? 0 : 120,
+        marginBottom: isDeleting ? -1 : "auto",
+        marginTop: isDeleting ? 0 : "auto",
       }}
       elevation={3}
     >
