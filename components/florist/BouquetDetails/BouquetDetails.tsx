@@ -48,10 +48,6 @@ export default function BouquetDetailes({ bouquet }: BouquetDetailesProps) {
           </Typography>
         </Box>
       </CardContent>
-
-      <IconButton sx={{ position: "absolute", top: 0, right: 0, mt: 1, mr: 1 }}>
-        <CloseRoundedIcon />
-      </IconButton>
     </Card>
   );
 }

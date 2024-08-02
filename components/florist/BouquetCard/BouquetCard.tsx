@@ -23,7 +23,7 @@ const BouquetCard = ({ bouquet, handleAddToCart }: BouquetProps) => {
         borderRadius: "24px",
       }}
     >
-      <Link href={`/product/${bouquet.id}`} passHref>
+      <Link href={`/product/${bouquet.id}`}>
         <Image
           src={bouquet.images[0]}
           alt={bouquet.name}

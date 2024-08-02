@@ -31,6 +31,7 @@ const NewsCard = memo(function NewsCard({ news }: NewsCardProps) {
     <Card
       sx={{
         width: { xxs: 360, sm: 720 },
+        height: "360px",
         position: "relative",
         display: { xxs: "block", sm: "flex" },
         justifyContent: "end",
