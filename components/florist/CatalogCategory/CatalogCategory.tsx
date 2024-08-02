@@ -26,10 +26,8 @@ export default function CatalogCategory({
         pt: 2,
         pb: 3,
         justifyContent: "space-between",
-        "@media (hover: hover)": {
-          "&:hover": {
-            backgroundColor: "rgba(118, 202, 254, 0.5)",
-          },
+        "&:hover": {
+          backgroundColor: "#f5f5f5",
         },
       }}
     >
