@@ -23,38 +23,40 @@ const BouquetCard = ({ bouquet, handleAddToCart }: BouquetProps) => {
         borderRadius: "24px",
       }}
     >
-      <Image
-        src={bouquet.images[0]}
-        alt={bouquet.name}
-        width={350}
-        height={350}
-        priority={false}
-        style={{
-          position: "absolute",
-          top: "0px",
-          left: "0px",
-          borderRadius: "24px",
-          opacity: imageLoaded ? 1 : 0,
-          transition: "opacity 0.8s ease-in-out",
-          cursor: "pointer",
-        }}
-        onLoad={() => {
-          setImageLoaded(true);
-        }}
-      />
+      <Link href={`/product/${bouquet.id}`} passHref>
+        <Image
+          src={bouquet.images[0]}
+          alt={bouquet.name}
+          width={350}
+          height={350}
+          priority={false}
+          style={{
+            position: "absolute",
+            top: "0px",
+            left: "0px",
+            borderRadius: "24px",
+            opacity: imageLoaded ? 1 : 0,
+            transition: "opacity 0.8s ease-in-out",
+            cursor: "pointer",
+          }}
+          onLoad={() => {
+            setImageLoaded(true);
+          }}
+        />
 
-      <Skeleton
-        variant="rectangular"
-        animation="wave"
-        sx={{
-          borderRadius: "24px",
-          position: "absolute",
-          top: "0px",
-          left: "0px",
-          width: 350,
-          height: 350,
-        }}
-      />
+        <Skeleton
+          variant="rectangular"
+          animation="wave"
+          sx={{
+            borderRadius: "24px",
+            position: "absolute",
+            top: "0px",
+            left: "0px",
+            width: 350,
+            height: 350,
+          }}
+        />
+      </Link>
 
       <CardContent
         sx={{
@@ -80,6 +82,8 @@ const BouquetCard = ({ bouquet, handleAddToCart }: BouquetProps) => {
             textWrap: "nowrap",
             overflow: "clip",
             textOverflow: "ellipsis",
+            textDecoration: "none",
+            color: "inherit",
             pr: 1,
             width: 200,
           }}

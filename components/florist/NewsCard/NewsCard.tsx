@@ -36,32 +36,31 @@ const NewsCard = memo(function NewsCard({ news }: NewsCardProps) {
         justifyContent: "end",
       }}
     >
-      <Box>
-        <Image
-          height={360}
-          width={360}
-          style={{
-            opacity: imgLoading ? 0 : 1,
-            transition: "opacity 0.8s ease-in-out",
+      <Image
+        height={360}
+        width={360}
+        style={{
+          opacity: imgLoading ? 0 : 1,
+          transition: "opacity 0.8s ease-in-out",
+        }}
+        src={news.imageUrl}
+        alt={news.header}
+        onLoad={() => setImageLoading(false)}
+      />
+      {imgLoading && (
+        <Skeleton
+          variant="rectangular"
+          animation="pulse"
+          sx={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            width: 360,
+            height: 360,
           }}
-          src={news.imageUrl}
-          alt={news.header}
-          onLoad={() => setImageLoading(false)}
         />
-        {imgLoading && (
-          <Skeleton
-            variant="rectangular"
-            animation="pulse"
-            sx={{
-              position: "absolute",
-              top: 0,
-              right: 0,
-              width: 360,
-              height: 360,
-            }}
-          />
-        )}
-      </Box>
+      )}
+
       <Box
         sx={{
           position: "absolute",
