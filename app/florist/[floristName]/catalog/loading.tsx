@@ -3,10 +3,19 @@ import CatalogCategorySkeleton from "@/components/florist/CatalogCategory/Catalo
 
 export default function CategoryListLoading() {
   return (
-    <>
-      {Array.from(new Array(3)).map((_, index) => (
-        <CatalogCategorySkeleton key={index} />
-      ))}
-    </>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "start",
+        gap: 1,
+      }}
+    >
+      <>
+        {Array.from(new Array(3)).map((_, index) => (
+          <CatalogCategorySkeleton key={index} />
+        ))}
+      </>
+    </Box>
   );
 }
