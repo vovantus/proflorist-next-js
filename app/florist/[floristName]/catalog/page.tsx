@@ -11,19 +11,10 @@ export default async function CategoriesListPage({
 }) {
   const categories = await floristApi.fetchCategories(params.floristName);
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "start",
-        gap: 1,
-      }}
-    >
-      <>
-        {categories.map((cat) => (
-          <CatalogCategory key={cat.id} category={cat} parentUrl="catalog" />
-        ))}
-      </>
-    </Box>
+    <>
+      {categories.map((cat) => (
+        <CatalogCategory key={cat.id} category={cat} parentUrl="catalog" />
+      ))}
+    </>
   );
 }

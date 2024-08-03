@@ -27,7 +27,6 @@ export default async function FloristHomeLayout({
   return (
     <Container
       sx={{
-        // bgcolor: "grey",
         px: { xxs: "8px", md: "8px" },
         width: "100%",
         display: "flex",
@@ -38,7 +37,6 @@ export default async function FloristHomeLayout({
       <Header floristName={floristName} />
       <Box
         sx={{
-          //   bgcolor: "lightBlue",
           display: "flex",
           flexWrap: "wrap",
           flexDirection: "row",

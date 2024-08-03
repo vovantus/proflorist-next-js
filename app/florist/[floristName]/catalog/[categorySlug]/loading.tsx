@@ -1,7 +1,7 @@
 import CircularProgress from "@mui/material/CircularProgress";
 import { Box } from "@mui/material";
 
-export default function FloristLoadingIndicator() {
+export default function CategoryBouquetstLoading() {
   return (
     <Box
       sx={{
