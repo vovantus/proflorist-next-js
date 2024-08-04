@@ -1,7 +1,6 @@
 import BouquetDetailes from "@/components/florist/BouquetDetails/BouquetDetails";
 import floristApi from "@/lib/floristApi";
 
-function generateStaticParams() {}
 
 export default async function ProductPage({
   params,

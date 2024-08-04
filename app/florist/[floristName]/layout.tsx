@@ -9,8 +9,10 @@ import Footer from "@/components/florist/Footer/Footer";
 export default async function FloristHomeLayout({
   children,
   params,
+  modal,
 }: {
   children: ReactNode;
+  modal: ReactNode;
   params: { floristName: string };
 }) {
   const floristName = params.floristName;
@@ -50,6 +52,7 @@ export default async function FloristHomeLayout({
           pt: { xxs: 8, sm: 10 },
         }}
       >
+        {modal}
         {children}
       </Box>
       <Footer />

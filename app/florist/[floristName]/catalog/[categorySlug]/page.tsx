@@ -34,7 +34,7 @@ export default async function BouquetsInCategoryPage({
       >
         <Box
           sx={{
-            gridColumn: "1 / -1", // This makes the box span from the first to the last column
+            gridColumn: "1 / -1",
             display: "flex",
             flexWrap: "wrap",
             flexDirection: "row",
