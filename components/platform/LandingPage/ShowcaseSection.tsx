@@ -1,6 +1,5 @@
 import { Grid, Typography, Box } from "@mui/material";
 import { headers } from "next/headers";
-import Image from "next/image";
 import ShowcaseCard from "./ShowcaseCard";
 
 export interface Showcase {
@@ -20,10 +19,14 @@ export default function ShowcaseSection({ showcases }: ShowcaseSectionProps) {
 
   return (
     <Box sx={{ my: 4, py: 4, px: 2, bgcolor: "grey.100" }}>
-      <Typography variant="h4" component="h2" gutterBottom align="center">
+      <Typography
+        variant="h2"
+        sx={{ fontSize: "2rem", mb: 2, fontWeight: 400 }}
+        align="center"
+      >
         Our Customers
       </Typography>
-      <Typography variant="body1" align="center" sx={{ mb: 4 }}>
+      <Typography variant="h5" align="center" sx={{ mb: 4, fontSize: "1rem" }}>
         We are not accepting new customers at the moment. However, you can
         explore the beautiful displays from our existing clients.
       </Typography>

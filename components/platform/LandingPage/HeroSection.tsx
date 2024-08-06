@@ -9,14 +9,14 @@ export default function HeroSection() {
       sx={{
         textAlign: "center",
         mt: 3,
-        height: { xxs: "300px", sm: "400px" },
+        height: { xxs: "500px", sm: "400px" },
         position: "relative",
       }}
     >
       <Box
         sx={{
           width: "100%",
-          height: { xxs: "300px", sm: "400px" },
+          height: { xxs: "500px", sm: "400px" },
           position: "relative",
         }}
       >
@@ -28,6 +28,8 @@ export default function HeroSection() {
           style={{
             objectFit: "cover",
           }}
+          placeholder="blur"
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAZCAYAAABHLbxYAAAAL0lEQVR42u3OAQ0AAAgDIJ/QInazojncIAGp2a4HIioqKioqKioqKioqKioq+jZ69PgjdFlhUbwAAAAASUVORK5CYII="
         />
       </Box>
 

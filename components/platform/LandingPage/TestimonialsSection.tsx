@@ -1,14 +1,7 @@
-import {
-  Container,
-  Grid,
-  Typography,
-  Card,
-  CardContent,
-  CardMedia,
-  Box,
-} from "@mui/material";
+import { Container, Grid, Typography, Box } from "@mui/material";
+import TestimonialsCard from "./TestimonialsCard";
 
-interface Testimonials {
+export interface Testimonials {
   img: string;
   quote: string;
   name: string;
@@ -22,52 +15,22 @@ export default function TestimonialsSection({
   testimonials,
 }: TestimonialsSectionProps) {
   return (
-    <Box sx={{ py: 8 }}>
+    <Box sx={{ py: 6, bgcolor: "grey.100" }}>
       <Container>
-        <Typography variant="h4" component="h2" gutterBottom align="center">
+        <Typography
+          variant="h2"
+          align="center"
+          sx={{ fontSize: "2rem", mb: 2, fontWeight: 400 }}
+        >
           What Our Users Say
         </Typography>
         <Grid container spacing={4}>
           {testimonials.map((testimonial, index) => (
-            <Grid
-              item
-              xxs={12}
-              xs={6}
-              sm={4}
-              key={index}
-              sx={
-                index === testimonials.length - 1
-                  ? { display: { xxs: "none", xs: "block", sm: "none" } }
-                  : { display: "auto" }
-              }
-            >
-              <Card sx={{ height: "100%" }}>
-                <CardMedia
-                  component="img"
-                  height="300"
-                  image={testimonial.img}
-                  alt={`Florist ${index + 1}`}
-                />
-                <CardContent
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Typography variant="body1" gutterBottom component="div">
-                    {testimonial.quote}
-                  </Typography>
-                  <Typography
-                    variant="h6"
-                    component="div"
-                    sx={{ textAlign: "end" }}
-                  >
-                    {testimonial.name}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
+            <TestimonialsCard
+              key={testimonial.name}
+              testimonial={testimonial}
+              lastCard={testimonials.length - index === 1}
+            />
           ))}
         </Grid>
       </Container>

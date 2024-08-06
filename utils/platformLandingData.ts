@@ -19,7 +19,7 @@ const showcases = [
 const features = [
   {
     icon: "https://firebasestorage.googleapis.com/v0/b/proflorist-54699.appspot.com/o/platform%2Fimg%2Flanding%2F10minIcon.png?alt=media&token=37e84b6d-c3a2-436e-959a-ee745f3b1677",
-    header: "Get Started in Just 10 Minutes",
+    header: "Get Started in Just 5 Minutes",
     text: "No complex settings or prolonged development – your website will be up and running quickly and effortlessly.",
   },
   {
@@ -29,7 +29,7 @@ const features = [
   },
   {
     icon: "https://firebasestorage.googleapis.com/v0/b/proflorist-54699.appspot.com/o/platform%2Fimg%2Flanding%2Fautomate.png?alt=media&token=abc1109a-5873-4456-ab02-476639278899",
-    header: "Automate Your Website Management",
+    header: "Automate Your Website",
     text: "Focus on your floral creations, not on website maintenance. Set your site to autopilot and let us handle the rest.",
   },
 ];

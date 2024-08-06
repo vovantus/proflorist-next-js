@@ -20,9 +20,13 @@ export default function StatisticsSection({
   statistics,
 }: StatisticsSectionProps) {
   return (
-    <Box sx={{ py: 8 }}>
+    <Box sx={{ py: 6 }}>
       <Container>
-        <Typography variant="h4" component="h2" gutterBottom align="center">
+        <Typography
+          variant="h2"
+          align="center"
+          sx={{ fontSize: "2rem", mb: 2, fontWeight: 400 }}
+        >
           Why Choose Proflorist?
         </Typography>
         <Grid container spacing={4}>

@@ -1,4 +1,5 @@
 import { Container, Typography, Button, Box } from "@mui/material";
+import bgImage from "@/assets/images/platform/landing/ctaBg.jpg";
 
 export default function CallToActionSection() {
   return (
@@ -8,7 +9,7 @@ export default function CallToActionSection() {
         px: 4,
         textAlign: "center",
         color: "white",
-        backgroundImage: `url(https://firebasestorage.googleapis.com/v0/b/proflorist-54699.appspot.com/o/platform%2Fimg%2Flanding%2Ffooter.jpg?alt=media&token=57e66074-3f06-4e71-bd74-0a801eeab9e4)`,
+        backgroundImage: `url(${bgImage.src})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -20,7 +21,13 @@ export default function CallToActionSection() {
         <Typography variant="h6" gutterBottom>
           Join our platform today and start building your dream website.
         </Typography>
-        <Button variant="contained" color="secondary" size="large">
+        <Button
+          variant="contained"
+          color="secondary"
+          size="large"
+          component="a"
+          href="#showcase"
+        >
           Sign Up Now
         </Button>
       </Container>

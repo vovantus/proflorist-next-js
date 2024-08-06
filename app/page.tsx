@@ -32,10 +32,11 @@ export default function LandingPage() {
         <FeaturesSection features={features} />
       </section>
 
-      <StatisticsSection statistics={statistics} />
       <section id="testimonials">
         <TestimonialsSection testimonials={testimonials} />
       </section>
+
+      <StatisticsSection statistics={statistics} />
 
       <CallToActionSection />
       <Footer />
