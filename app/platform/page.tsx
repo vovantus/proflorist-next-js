@@ -1,3 +1,3 @@
 export default function Page() {
-  return <h3>static rout Platform</h3>;
+  return <h3>Static rout Platform</h3>;
 }

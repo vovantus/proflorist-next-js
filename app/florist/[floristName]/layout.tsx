@@ -3,7 +3,7 @@ import { Container, Box } from "@mui/material";
 import Header from "@/components/florist/Header/Header";
 import { notFound } from "next/navigation";
 import { fetchFlorist } from "@/lib/data";
-import FloristNotFound from "@/components/FloristNotFound/FloristNotFound";
+import FloristNotFound from "@/components/shared/FloristNotFound/FloristNotFound";
 import Footer from "@/components/florist/Footer/Footer";
 
 export default async function FloristHomeLayout({
