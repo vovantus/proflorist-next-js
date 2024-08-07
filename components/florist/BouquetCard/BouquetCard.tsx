@@ -122,6 +122,7 @@ const BouquetCard = ({ bouquet, handleAddToCart }: BouquetProps) => {
             bgcolor: "#cfd8dc60",
           }}
           disableRipple
+          disableTouchRipple
         >
           <AddShoppingCartIcon />
         </IconButton>
