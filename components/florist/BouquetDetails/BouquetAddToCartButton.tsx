@@ -16,7 +16,7 @@ export default function BouquetAddToCartButton({
       variant="outlined"
       onClick={() => addItem(bouquetId)}
       sx={{
-        width: 110,
+        width: 120,
         ml: 1,
         mt: 1,
         position: { xxs: "relative", sm: "auto" },

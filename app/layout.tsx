@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ReactNode } from "react";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
-import theme from "@/theme";
+import platformTheme from "@/themes/platformTheme";
 import { CssBaseline } from "@mui/material";
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body>
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-          <ThemeProvider theme={theme}>
+          <ThemeProvider theme={platformTheme}>
             <CssBaseline />
             {children}
           </ThemeProvider>

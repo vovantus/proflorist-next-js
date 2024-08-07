@@ -1,6 +1,6 @@
-import theme from "@/theme";
 import { Alert, Snackbar } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useTheme } from "@mui/material";
 
 export interface SnackBarMessage {
   message: string;
@@ -18,6 +18,7 @@ export default function SnackBarAlerts({
   const [messageInfo, setMessageInfo] = useState<SnackBarMessage | undefined>(
     undefined
   );
+  const theme = useTheme();
 
   useEffect(() => {
     if (snackPack.length && !messageInfo) {

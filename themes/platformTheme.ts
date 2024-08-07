@@ -1,7 +1,5 @@
 "use client";
 
-
-
 import { Roboto } from "next/font/google";
 import { createTheme } from "@mui/material/styles";
 import { red } from "@mui/material/colors";
@@ -11,6 +9,21 @@ const roboto = Roboto({
   subsets: ["latin"],
   display: "swap",
 });
+
+declare module "@mui/material/styles" {
+  interface Theme {
+    customStyles: {
+      topNavButton: React.CSSProperties;
+      categoryListItem: React.CSSProperties;
+    };
+  }
+  interface ThemeOptions {
+    customStyles?: {
+      topNavButton?: React.CSSProperties;
+      categoryListItem?: React.CSSProperties;
+    };
+  }
+}
 
 declare module "@mui/material/styles" {
   interface BreakpointOverrides {
@@ -23,7 +36,7 @@ declare module "@mui/material/styles" {
   }
 }
 
-const theme = createTheme({
+const platformTheme = createTheme({
   breakpoints: {
     values: {
       xxs: 0,
@@ -63,6 +76,11 @@ const theme = createTheme({
       `,
     },
   },
+  customStyles: {
+    topNavButton: {
+      color: "#fff",
+    },
+  },
 });
 
-export default theme;
+export default platformTheme;

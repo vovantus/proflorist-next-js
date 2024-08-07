@@ -11,6 +11,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { MouseEvent, useState } from "react";
 import Link from "next/link";
+import { useTheme } from "@mui/material";
 
 export interface NavLink {
   text: string;
@@ -27,6 +28,8 @@ export default function NavMenu({ pages }: { pages: NavLink[] }) {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  const theme = useTheme();
 
   return (
     <>
@@ -82,7 +85,9 @@ export default function NavMenu({ pages }: { pages: NavLink[] }) {
             href={page.to}
             key={page.text}
             onClick={handleCloseNavMenu}
-            sx={{ my: 2, color: "white", display: "block" }}
+            sx={{
+              ...theme.customStyles.topNavButton,
+            }}
           >
             {page.text}
           </Button>

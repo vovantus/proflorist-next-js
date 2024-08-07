@@ -10,8 +10,8 @@ import { useCart } from "@/store/store";
 import { Snackbar, Alert } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useShallow } from "zustand/react/shallow";
-import theme from "@/theme";
 import CartItemsList from "@/components/florist/Cart/CartItemsList";
+import { useTheme } from "@mui/material";
 
 export default function CartPage({
   params,
@@ -34,6 +34,7 @@ export default function CartPage({
   const [removingBouquetCandidate, setRemovingBouquetCandidate] =
     useState<Bouquet>();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const theme = useTheme();
 
   useEffect(() => setPageInitialized(true), []);
 

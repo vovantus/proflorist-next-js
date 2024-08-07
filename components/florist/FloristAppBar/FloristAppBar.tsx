@@ -13,14 +13,7 @@ interface FloristAppBarProps {
 
 function FloristAppBar({ floristName, pages }: FloristAppBarProps) {
   return (
-    <AppBar
-      position="fixed"
-      color="secondary"
-      sx={{
-        backgroundColor: "rgba(118, 202, 254, 0.5)",
-        backdropFilter: "blur(8px)",
-      }}
-    >
+    <AppBar position="fixed" color="secondary">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <LocalFloristOutlinedIcon

@@ -119,7 +119,7 @@ const BouquetCard = ({ bouquet, handleAddToCart }: BouquetProps) => {
           sx={{
             p: 1,
             bgcolor: "#cfd8dc60",
-            "@media (hover: hover)": {
+            "@media (any-hover: hover)": {
               "&:hover": {
                 backgroundColor: addToCartBgColor,
               },
