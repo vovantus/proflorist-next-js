@@ -26,6 +26,11 @@ export default function CatalogCategory({
         pt: 2,
         pb: 3,
         justifyContent: "space-between",
+        "&:hover": {
+          backgroundColor: "#f5f5f5",
+          boxShadow:
+            "0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)",
+        },
         "@media (hover: hover)": {
           "&:hover": {
             backgroundColor: "#98d9ff",
@@ -34,8 +39,6 @@ export default function CatalogCategory({
           },
         },
       }}
-      disableFocusRipple
-      disableTouchRipple
     >
       <Typography variant="h5" component="div">
         {category.name}

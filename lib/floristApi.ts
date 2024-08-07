@@ -61,6 +61,11 @@ interface Api {
     cursorNewsId?: News["id"],
     listLength?: number
   ) => Promise<[News[], boolean]>;
+
+  fetchStaticInfo: (
+    floristName: string,
+    pageName: "about" | "contacts" | "delivery"
+  ) => Promise<DocumentData>;
 }
 
 const floristApi: Api = {
@@ -193,6 +198,18 @@ const floristApi: Api = {
     const hasMore = newsSnapshot.size > listLength;
 
     return [newsList.slice(0, listLength), hasMore];
+  },
+
+  fetchStaticInfo: async (floristName, pageName) => {
+    const floristDoc = await floristApi.fetchFlorist(floristName);
+    const staticDoc = doc(floristDoc, "info", pageName);
+    const staticSnapshot = await getDoc(staticDoc);
+
+    if (staticSnapshot.exists()) {
+      return staticSnapshot.data();
+    } else {
+      throw new Error("static data not found");
+    }
   },
 };
 
