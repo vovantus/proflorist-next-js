@@ -6,8 +6,9 @@ import { fetchFlorist } from "@/lib/data";
 import FloristNotFound from "@/components/shared/FloristNotFound/FloristNotFound";
 import Footer from "@/components/florist/Footer/Footer";
 import { ThemeProvider } from "@mui/material/styles";
-import comicTheme from "@/themes/comicTheme";
-import floristDefaultTheme from "@/themes/floristDefaultTheme";
+import themes from "@/themes/themes";
+import Florist from "@/lib/types/Florist";
+import { createFloristFromDoc } from "@/utils/dataTransforms";
 
 export default async function FloristHomeLayout({
   children,
@@ -17,22 +18,22 @@ export default async function FloristHomeLayout({
   params: { floristName: string };
 }) {
   const floristName = params.floristName;
-  let florist: any;
+  let florist: Florist | null = null;
 
   if (floristName) {
     try {
-      florist = await fetchFlorist(floristName);
+      const floristDoc = await fetchFlorist(floristName);
+      florist = floristDoc ? createFloristFromDoc(floristDoc) : null;
     } catch {
       return <FloristNotFound subdomain={floristName} />;
     }
   } else {
     notFound();
   }
-  const updatedTheme =
-    florist?.theme === "comic" ? comicTheme : floristDefaultTheme;
+  const selectedTheme = themes[florist?.theme || "default"];
 
   return (
-    <ThemeProvider theme={updatedTheme}>
+    <ThemeProvider theme={selectedTheme}>
       <Container
         sx={{
           px: { xxs: "8px", md: "8px" },

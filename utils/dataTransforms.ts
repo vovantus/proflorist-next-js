@@ -4,6 +4,7 @@ import Category from "@/lib/types/Category";
 import Contacts from "@/lib/types/Contacts";
 import Delivery from "@/lib/types/Delivery";
 import DeliveryOptions from "@/lib/types/DeliveryOptions";
+import Florist from "@/lib/types/Florist";
 import News from "@/lib/types/News";
 import Social from "@/lib/types/Social";
 import { DocumentData } from "firebase/firestore/lite";
@@ -94,6 +95,13 @@ function createDeliveryInfoFromDoc(doc: DocumentData): Delivery {
   return delivery;
 }
 
+function createFloristFromDoc(doc: DocumentData): Florist {
+  return {
+    name: doc.name,
+    theme: doc.theme ?? null,
+  };
+}
+
 export {
   createBouquetFromDocument,
   createCategoryFromDocument,
@@ -103,4 +111,5 @@ export {
   createContactsFromDocument,
   createDeliveryOptionsFromDoc,
   createDeliveryInfoFromDoc,
+  createFloristFromDoc,
 };
