@@ -1,5 +1,5 @@
 import Category from "@/lib/types/Category";
-import { Card, CardContent, Typography, Box, Button } from "@mui/material";
+import { Typography, Button } from "@mui/material";
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
 import Link from "next/link";
 
@@ -26,8 +26,10 @@ export default function CatalogCategory({
         pt: 2,
         pb: 3,
         justifyContent: "space-between",
-        "&:hover": {
-          backgroundColor: "#f5f5f5",
+        "@media (hover: hover)": {
+          "&:hover": {
+            backgroundColor: "#98d9ff",
+          },
         },
       }}
     >
