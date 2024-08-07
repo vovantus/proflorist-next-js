@@ -1,8 +1,17 @@
 "use client";
-import { Typography, Button, Card, CardContent, Skeleton } from "@mui/material";
+import {
+  Typography,
+  Button,
+  Card,
+  CardContent,
+  Skeleton,
+  Box,
+  useTheme,
+  IconButton,
+} from "@mui/material";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useState } from "react";
 import Image from "next/image";
-
 import Bouquet from "@/lib/types/Bouquet";
 import Link from "next/link";
 
@@ -13,6 +22,9 @@ interface BouquetProps {
 
 const BouquetCard = ({ bouquet, handleAddToCart }: BouquetProps) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const theme = useTheme();
+  const titleColor = theme.palette.primary.contrastText;
+  const addToCartBgColor = theme.palette.secondary.contrastText;
 
   return (
     <Card
@@ -68,36 +80,51 @@ const BouquetCard = ({ bouquet, handleAddToCart }: BouquetProps) => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          pb: "5px",
+          pb: 1,
+          pt: 1,
           ":last-child": { pb: 1 },
         }}
       >
-        <Typography
-          gutterBottom
-          variant="subtitle1"
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            cursor: "pointer",
+            textDecoration: "none",
+            color: titleColor,
+          }}
           component={Link}
           href={`/product/${bouquet.id}`}
-          sx={{
-            cursor: "pointer",
-            textWrap: "nowrap",
-            overflow: "clip",
-            textOverflow: "ellipsis",
-            textDecoration: "none",
-            color: "inherit",
-            pr: 1,
-            width: 200,
-          }}
         >
-          {bouquet.name}
-        </Typography>
-        <Button
-          component="div"
-          sx={{ minWidth: "100px", textWrap: "nowrap" }}
+          <Typography
+            variant="subtitle1"
+            sx={{
+              textWrap: "nowrap",
+              overflow: "clip",
+              textOverflow: "ellipsis",
+              textDecoration: "none",
+              color: "inherit",
+              pr: 1,
+              width: 200,
+            }}
+          >
+            {bouquet.name}
+          </Typography>
+          <Typography variant="body2"> {bouquet.price}€</Typography>
+        </Box>
+        <IconButton
           size="small"
           onClick={handleAddToCart}
+          color="primary"
+          sx={{
+            p: 1,
+            "&:hover": { bgcolor: addToCartBgColor },
+            bgcolor: "#cfd8dc60",
+          }}
+          disableRipple
         >
-          From {bouquet.price}€
-        </Button>
+          <AddShoppingCartIcon />
+        </IconButton>
       </CardContent>
     </Card>
   );
