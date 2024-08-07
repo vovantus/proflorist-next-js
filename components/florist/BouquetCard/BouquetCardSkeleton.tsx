@@ -1,4 +1,4 @@
-import { Typography, Card, Skeleton, CardContent } from "@mui/material";
+import { Typography, Card, Skeleton, CardContent, Box } from "@mui/material";
 import { forwardRef } from "react";
 
 const BouquetCardSkeleton = forwardRef<HTMLDivElement>(
@@ -32,18 +32,42 @@ const BouquetCardSkeleton = forwardRef<HTMLDivElement>(
             bottom: 0,
             width: "100%",
             background: "rgba(255, 255, 255, 0.8)",
+            boxSizing: "border-box",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             pb: 1,
-            ":last-child": { pb: 2 },
+            pt: 1,
+            ":last-child": { pb: 1 },
           }}
         >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <Typography
+              variant="subtitle1"
+              sx={{
+                textWrap: "nowrap",
+                overflow: "clip",
+                textOverflow: "ellipsis",
+                textDecoration: "none",
+                color: "inherit",
+                pr: 1,
+                width: 200,
+              }}
+            >
+              <Skeleton width="150px" />
+            </Typography>
+            <Typography variant="body2">
+              {" "}
+              <Skeleton width="110px" />
+            </Typography>
+          </Box>
           <Typography variant="subtitle1" component="div">
-            <Skeleton width="150px" />
-          </Typography>
-          <Typography variant="subtitle1" component="div">
-            <Skeleton width="90px" />
+            <Skeleton width="40px" />
           </Typography>
         </CardContent>
       </Card>
