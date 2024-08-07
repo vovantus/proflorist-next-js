@@ -118,11 +118,14 @@ const BouquetCard = ({ bouquet, handleAddToCart }: BouquetProps) => {
           color="primary"
           sx={{
             p: 1,
-            "&:hover": { bgcolor: addToCartBgColor },
             bgcolor: "#cfd8dc60",
+            "@media (hover: hover)": {
+              "&:hover": {
+                backgroundColor: addToCartBgColor,
+              },
+            },
           }}
           disableRipple
-          disableTouchRipple
         >
           <AddShoppingCartIcon />
         </IconButton>
