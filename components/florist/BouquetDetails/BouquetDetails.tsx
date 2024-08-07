@@ -28,7 +28,7 @@ export default function BouquetDetailes({ bouquet }: BouquetDetailesProps) {
           flexDirection: "column",
         }}
       >
-        <Typography variant="h5" sx={{ maxWidth: "90%" }}>
+        <Typography variant="h5" sx={{ maxWidth: { xxs: "50%", sm: "90%" } }}>
           {bouquet.name}
         </Typography>
         <Typography variant="body2" sx={{ order: { xxs: 1, sm: 0 } }}>
