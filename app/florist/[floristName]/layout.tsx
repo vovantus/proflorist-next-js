@@ -9,6 +9,20 @@ import { ThemeProvider } from "@mui/material/styles";
 import themes from "@/themes/themes";
 import Florist from "@/lib/types/Florist";
 import { createFloristFromDoc } from "@/utils/dataTransforms";
+import { describe } from "node:test";
+
+export function generateMetadata({
+  params,
+}: {
+  params: { floristName: string };
+}) {
+  const floristName =
+    params.floristName.charAt(0).toUpperCase() + params.floristName.slice(1);
+  return {
+    title: `${floristName} flower shop`,
+    description: `Discover beautiful and fresh floral arrangements at: ${floristName}. From romantic bouquets to seasonal favorites, our handpicked flowers are perfect for every occasion.`,
+  };
+}
 
 export default async function FloristHomeLayout({
   children,
