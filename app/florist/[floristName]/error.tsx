@@ -1,4 +1,7 @@
 "use client";
-export default function Error({ params }: { params: { floristName: string } }) {
-  return <div>Error page</div>;
+
+import ErrorCard from "@/components/florist/ErrorCard/ErrorCard";
+
+export default function Error() {
+  return <ErrorCard />;
 }

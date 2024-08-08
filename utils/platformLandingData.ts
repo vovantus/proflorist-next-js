@@ -6,8 +6,8 @@ const showcases = [
   },
   {
     img: "https://firebasestorage.googleapis.com/v0/b/proflorist-54699.appspot.com/o/platform%2Fimg%2Flanding%2Fshowcase5.jpg?alt=media&token=2da70a25-bdf8-4c19-900c-1057ebfc71ad",
-    title: "Fantasies",
-    link: "floral-fantasies",
+    title: "Floral fantasies",
+    link: "fantasies",
   },
   {
     img: "https://firebasestorage.googleapis.com/v0/b/proflorist-54699.appspot.com/o/platform%2Fimg%2Flanding%2Fshowcase6.jpg?alt=media&token=0c375207-fa87-47e4-9766-f60e7c17c3e9",

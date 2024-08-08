@@ -5,6 +5,7 @@ import { Box } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
 import NewsCard from "../NewsCard/NewsCard";
 import NewsCardSkeleton from "../NewsCard/NewsCardSkeleton";
+import NoNews from "./NoNews";
 
 interface NewsListProps {
   floristName: string;
@@ -70,10 +71,16 @@ export default function NewsList({
         gap: 1,
       }}
     >
-      {newsList.map((el) => (
-        <NewsCard key={el.id} news={el} />
-      ))}
-      {status !== "finished" && <NewsCardSkeleton ref={targetRef} />}
+      {newsList.length > 0 ? (
+        <>
+          {newsList.map((el) => (
+            <NewsCard key={el.id} news={el} />
+          ))}
+          {status !== "finished" && <NewsCardSkeleton ref={targetRef} />}
+        </>
+      ) : (
+        <NoNews />
+      )}
     </Box>
   );
 }

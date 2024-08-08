@@ -1,4 +1,5 @@
 import BouquetList from "@/components/florist/BouquetList/BouquetList";
+import NoBouquets from "@/components/florist/NoBouquets/NoBouquets";
 import floristApi from "@/lib/floristApi";
 import { Typography, Box } from "@mui/material";
 
@@ -50,12 +51,16 @@ export default async function BouquetsInCategoryPage({
             <Typography variant="body2">{category.description}</Typography>
           )}
         </Box>
-        <BouquetList
-          floristName={flotistName}
-          initialBouquets={bouquets}
-          categoryId={category.id}
-          hasMore={hasMore}
-        />
+        {bouquets.length > 0 ? (
+          <BouquetList
+            floristName={flotistName}
+            initialBouquets={bouquets}
+            categoryId={category.id}
+            hasMore={hasMore}
+          />
+        ) : (
+          <NoBouquets />
+        )}
       </Box>
     </>
   );
