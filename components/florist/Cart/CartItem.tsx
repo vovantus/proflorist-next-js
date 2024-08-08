@@ -94,8 +94,8 @@ const CartItem = memo(function CartItem({
             component="div"
             variant="h5"
             sx={{
-              textWrap: "nowrap",
-              textOverflow: "ellipsis",
+              textWrap: "wrap",
+              width: 220,
               overflow: "hidden",
             }}
           >
